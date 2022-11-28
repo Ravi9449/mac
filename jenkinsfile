@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+
+    stages{
+        stage('Initialize'){
+            steps{
+                sh script: '''pathToPomFile=pom.xml
+                version_line=$(cat $pathToPomFile | grep "<version>" | head -1)
+                version_line=${version_line#*>}
+                version=${version_line%<*}
+                echo $version > pomversion.txt''', returnStdout: true
+
+                echo "Read APP_Version fro pom file"
+                script{
+                    pomversion = readFile 'pomversion.txt'
+                    pomversion = pomversion.trim()
+                    sh "echo app version from pom: ${pomversion}"
+                    env.APP_VERSION = pomversion
+                }
+            }
+        }
+
+        stage('Check'){
+            steps{
+                echo "${APP_VERSIOn}"
+            }
+        }
+    }
+}
