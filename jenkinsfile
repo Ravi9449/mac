@@ -17,7 +17,7 @@ pipeline{
                 set -- $version
                 newPomVersion="$1.$(($2+1)).0"
                 echo "$newPomVersion"
-                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt 
+                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt''', returnStdout: true 
             }
         }
 
