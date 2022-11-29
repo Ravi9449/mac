@@ -15,9 +15,9 @@ pipeline{
                 IFS="."
                 set -- $version
                 newReleaseBranch=Release-$1.$2''', returnStdout: true
-                script{
-                    echo $newReleaseBranch
-                } 
+                
+                echo $newReleaseBranch
+                
             }
         }
 
