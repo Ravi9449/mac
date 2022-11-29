@@ -8,14 +8,13 @@ pipeline{
     stages{
         stage('Initialize'){
             steps{
-                sh script: '''pathToPomFile=demo.txt
+                sh script: """pathToPomFile=demo.txt
                 version_line=$(cat $pathToPomFile | grep "<version>" | head -1)
                 version_line=${version_line#*>}
                 version=${version_line%<*}
                 IFS="."
                 set -- $version
-                newReleaseBranch=Release-$1.$2''', returnStdout: true
-                
+                newReleaseBranch=Release-$1.$2""", returnStdout: true
                 echo $newReleaseBranch
                 
             }
