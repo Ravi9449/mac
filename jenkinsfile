@@ -17,7 +17,10 @@ pipeline{
                 set -- $version
                 newPomVersion="$1.$(($2+1)).0"
                 echo "$newPomVersion"
-                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt''', returnStdout: true 
+                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt
+                git add demo.txt
+                git commit -m "Changing Pom Version"
+                git push''', returnStdout: true 
             }
         }
 
