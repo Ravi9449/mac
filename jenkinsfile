@@ -1,9 +1,9 @@
 pipeline{
     agent any
 
-    triggers{
-        pollSCM('* * * * *')
-    }
+    #triggers{
+    #    pollSCM('* * * * *')
+    #}
 
     stages{
         stage('Initialize'){
@@ -23,7 +23,9 @@ pipeline{
 
         stage('Check'){
             steps{
-                cat demo.txt
+                script{
+                    sh cat demo.txt
+                }
             }
         }
     }
