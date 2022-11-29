@@ -12,15 +12,13 @@ pipeline{
                 version_line=$(cat $pathToPomFile | grep "<version>" | head -1)
                 version_line=${version_line#*>}
                 version=${version_line%<*}
-                echo $version > pomversion.txt''', returnStdout: true
+                IFS="."
 
-                echo "Read APP_Version fro pom file"
-                script{
-                    pomversion = readFile 'pomversion.txt'
-                    pomversion = pomversion.trim()
-                    sh "echo app version from pom: ${pomversion}"
-                    env.APP_VERSION = pomversion
-                }
+                set -- $version
+                newPomVersion="$1.$(($2+1)).0"
+                echo "$newPomVersion"
+                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt 
+                echo $version > pomversion.txt''', returnStdout: true
             }
         }
 
