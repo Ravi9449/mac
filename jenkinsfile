@@ -18,13 +18,12 @@ pipeline{
                 newPomVersion="$1.$(($2+1)).0"
                 echo "$newPomVersion"
                 sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt 
-                echo $version > pomversion.txt''', returnStdout: true
             }
         }
 
         stage('Check'){
             steps{
-                echo "${APP_VERSIOn}"
+                echo "${demo.txt}"
             }
         }
     }
