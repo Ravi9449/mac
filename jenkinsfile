@@ -13,14 +13,11 @@ pipeline{
                 version_line=${version_line#*>}
                 version=${version_line%<*}
                 IFS="."
-
                 set -- $version
-                newPomVersion="$1.$(($2+1)).0"
-                echo "$newPomVersion"
-                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt
-                git add demo.txt
-                git commit -m "Changing Pom Version"
-                git push origin HEAD:main''', returnStdout: true 
+                newReleaseBranch=Release-$1.$2''', returnStdout: true
+                script{
+                    echo $newReleaseBranch
+                } 
             }
         }
 

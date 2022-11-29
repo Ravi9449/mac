@@ -2,3 +2,9 @@
 Checking Hello World
 <version>1.2.0-SNAPSHOT</version>
 
+newPomVersion="$1.$(($2+1)).0"
+                echo "$newPomVersion"
+                sed -i.bak "/<version>/s/>.*</>${newPomVersion}-SNAPSHOT</" demo.txt
+                git add demo.txt
+                git commit -m "Changing Pom Version"
+                git push origin HEAD:main
