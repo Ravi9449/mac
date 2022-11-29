@@ -23,9 +23,7 @@ pipeline{
 
         stage('Check'){
             steps{
-                script{
-                    cat demo.txt
-                }
+                sh script: cat demo.txt
             }
         }
     }
